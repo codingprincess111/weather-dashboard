@@ -10,4 +10,6 @@ The weather dashboard also includes a list of recent searches, below the search 
 
 ### Screenshot
 
-[screenshot(.)]
+[screenshot](./assets/weather-dashboard-screenshot.png)
+
+This website can be found at https://codingprincess111.github.io/weather-dashboard/ 
