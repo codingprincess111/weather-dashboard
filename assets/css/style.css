@@ -71,7 +71,7 @@ body {
     background-color: #555;
     }
     
-    #weather-area {
+    #weather-area, #today {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -99,6 +99,7 @@ body {
     
     
     #five-day-forecast {
+    padding-left: 10%;
     display: flex;
     justify-content: space-between;
     width: 100%;
