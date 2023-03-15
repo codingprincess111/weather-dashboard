@@ -19,6 +19,7 @@ function createcityEl (cityName) {
     cityEl.setAttribute('id','city-name');
     return cityEl;
 }
+//function used to create the city name element that will be displayed on forecast card 
 
 function createDateEl (date) {
     var dateEl = document.createElement('h3');
@@ -26,12 +27,15 @@ function createDateEl (date) {
     dateEl.className = "card-data"
     return dateEl;
 }
+//function used to create the date element that will be displayed on the forecast card
+
 function createIconEl(icon) {
     var iconEl = document.createElement('img');
     iconEl.src = "http://openweathermap.org/img/wn/" + icon + "@2x.png"
     iconEl.className = "card-data";
     return iconEl;
 }
+//function displays icon for given forecast retrieved from api to the page
 
 function createTempEl(temp) {
     var tempEl = document.createElement('div')
@@ -39,6 +43,7 @@ function createTempEl(temp) {
     tempEl.className = "card-data";
     return tempEl;
 }
+//function displays temperature on forecast card
 
 function createWindEl(wind) {
     var windEl = document.createElement('div')
@@ -46,6 +51,7 @@ function createWindEl(wind) {
     windEl.className = "card-data";
     return windEl;
 }
+//function displays wind mph on forecast card
 
 function createHumidEl(humid) {
     var humidEl = document.createElement('div')
@@ -53,6 +59,7 @@ function createHumidEl(humid) {
     humidEl.className = "card-data";
     return humidEl;
 }
+//function displays humidity index on forecast card
 
 function renderForecast(cityName, date, icon, temp, humid, wind) {
     var forecastCard = document.createElement('div');
@@ -65,6 +72,7 @@ function renderForecast(cityName, date, icon, temp, humid, wind) {
     forecastCard.append(createDateEl(date), createIconEl(icon), createTempEl(temp), createHumidEl(humid), createWindEl(wind));
     forecastContainer.append(forecastCard);
 }
+//function renders today's forecast when user search city name
 
 function retrieveWeatherData(inputCity) {
     var fullGeoUrl = geocodeUrl + inputCity + limitSearch + apiKeyTerm + apiKey
@@ -84,6 +92,9 @@ function retrieveWeatherData(inputCity) {
         asyncApiCall(fullForecastUrl);
     });
 }
+//fetching to request api endpoint, once data is recieved, function extracts json data using json method, and returns the first element in the array weather [0] which contains, long & lat
+//used then function to retrieve the forecast data long, lat, forecast url, apikey term, unit term, api key - variables
+//line 92 makes call to fetch data, function retrieves long and lat for given city 
 
 async function asyncApiCall(url) {
     const result = await fetch(url)
@@ -104,6 +115,10 @@ async function asyncApiCall(url) {
             result.list[i].wind.speed)
     }
 }
+//async function allows the program to continue running while it waits to complete tasks and does not block the main thread and allows other code to run
+//loops through result.list array which contains weather data for the next 5 days
+//for each loop iterated over result.list, it calls renderforecast function to pass through parameters
+//this code is responsible for extracting anf storing name of city and rendering forecast using weather data from api call
 
 function loadFullHistory() {
     for (var i = 0; i < localStorage.length; i++) {
@@ -112,6 +127,7 @@ function loadFullHistory() {
         historyContainer.appendChild(divKey);
     }
 }
+//when user enters city, it is saved into local storage and history is displayed below search bar
 
 function clearPreviousForecast() {
     if (todayContainer.childNodes.length > 0) {
@@ -123,6 +139,7 @@ function clearPreviousForecast() {
         clearPreviousForecast();
     }
 }
+//when user refresh page, weather rendered for that city will be gone until city is entered again
 
 function citySearch (event) {
     event.preventDefault();
@@ -130,8 +147,10 @@ function citySearch (event) {
     clearPreviousForecast();
     retrieveWeatherData(searchCity.value);
 }
+//when user enters new city search, previous forecast from previous search is cleared. 
+//preventing the default form submission behavior
 
 loadFullHistory();
 searchForm.addEventListener("submit", citySearch);
-
+//user can see search history after they submit search
 
