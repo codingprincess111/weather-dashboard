@@ -127,6 +127,7 @@ function loadFullHistory() {
         historyContainer.appendChild(divKey);
     }
 }
+//when user enters city, it is saved into local storage and history is displayed below search bar
 
 function clearPreviousForecast() {
     if (todayContainer.childNodes.length > 0) {
@@ -138,6 +139,7 @@ function clearPreviousForecast() {
         clearPreviousForecast();
     }
 }
+//when user refresh page, weather rendered for that city will be gone until city is entered again
 
 function citySearch (event) {
     event.preventDefault();
@@ -145,8 +147,10 @@ function citySearch (event) {
     clearPreviousForecast();
     retrieveWeatherData(searchCity.value);
 }
+//when user enters new city search, previous forecast from previous search is cleared. 
+//preventing the default form submission behavior
 
 loadFullHistory();
 searchForm.addEventListener("submit", citySearch);
-
+//user can see search history after they submit search
 
